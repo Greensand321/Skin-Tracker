@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches the default "Midnight" web theme background (#060d18). -->
+    <color name="keto_bg">#060d18</color>
+    <!-- Gold accent used as the notification LED / icon tint colour. -->
+    <color name="keto_gold">#F5C842</color>
+</resources>

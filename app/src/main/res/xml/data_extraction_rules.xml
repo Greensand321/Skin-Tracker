@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ Auto Backup / device-transfer config — same intent as
+     backup_rules.xml (legacy fallback for <12): keep the day-log database,
+     skip the potentially-large meal photos directory (filesDir/photos/). -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="photos/" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="photos/" />
+    </device-transfer>
+</data-extraction-rules>

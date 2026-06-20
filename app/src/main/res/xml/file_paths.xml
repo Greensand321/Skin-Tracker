@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Exposes only the temp capture directory to the camera app — nothing else
+     in our storage is shared via the FileProvider. -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="captures" path="captures/" />
+</paths>

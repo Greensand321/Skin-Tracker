@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Legacy (pre-Android 12) Auto Backup config — keeps the day-log database in
+     cloud backups (it's the user's logging history) but excludes meal photos,
+     mirroring the web app's own JSON export which also leaves photos out
+     (CLAUDE.md "IndexedDB (photo store)"). Photos live in filesDir/photos/. -->
+<full-backup-content>
+    <exclude domain="file" path="photos/" />
+</full-backup-content>
