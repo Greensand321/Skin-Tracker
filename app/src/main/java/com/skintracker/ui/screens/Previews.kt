@@ -105,11 +105,11 @@ private fun PreviewCalendar() {
     }
 }
 
-@Preview(name = "Overlay — Body Map (filler)", showBackground = true, heightDp = 780, widthDp = 390)
+@Preview(name = "Overlay — Body Map", showBackground = true, heightDp = 780, widthDp = 390)
 @Composable
 private fun PreviewBodyMap() {
     KetoTracker("midnight") {
-        BodyMapSheet(meal = Meal.BREAKFAST, onClose = {})
+        BodyMapSheet(meal = Meal.BREAKFAST, swelling = emptyMap(), onSwellingChange = { _, _ -> }, onClose = {})
     }
 }
 
