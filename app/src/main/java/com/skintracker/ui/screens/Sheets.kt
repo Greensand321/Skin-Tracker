@@ -49,11 +49,13 @@ import com.skintracker.data.Meal
 import com.skintracker.data.SymptomSnapshot
 import com.skintracker.data.severity
 import com.skintracker.model.AppViewModel
+import com.skintracker.ui.components.BodyMapSelector
 import com.skintracker.ui.components.KText
 import com.skintracker.ui.components.KetoTextArea
 import com.skintracker.ui.components.PrimaryButton
 import com.skintracker.ui.components.SymptomRow
 import com.skintracker.ui.theme.KetoTheme
+
 
 /** Full-screen modal scaffold matching the web `.fs-modal`. */
 @Composable
@@ -192,29 +194,31 @@ private fun Stat(icon: String, value: String) {
 
 // ── Body map: swelling severity per body zone ───────────────────────────────
 //
-// PLACEHOLDER (filler). The real interaction — a front/back body silhouette
-// where each tap on a zone cycles swelling severity 0→1→2→3→0 (redder each
-// tap) — is intentionally deferred. The underlying data already exists
-// (SymptomSnapshot.swelling: Map<zoneId, severity>) and AppViewModel exposes
-// `setMealSwelling(meal, zone, severity)`, so this sheet can be fleshed out
-// without touching the model. See android-skin/CLAUDE.md "body map".
 @Composable
-fun BodyMapSheet(meal: Meal, onClose: () -> Unit) {
+fun BodyMapSheet(
+    meal: Meal,
+    swelling: Map<String, Int>,
+    onSwellingChange: (zone: String, severity: Int) -> Unit,
+    onClose: () -> Unit,
+) {
     val c = KetoTheme.colors
     FullScreenSheet("🧍 Body Map — Swelling", onClose) {
         Column(
-            Modifier.fillMaxSize().padding(24.dp),
+            Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(18.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            KText("🚧", size = 44)
-            KText("Body map coming soon", size = 18, color = c.txt, weight = FontWeight.Bold)
             KText(
-                "A front/back body outline where you tap each area to mark swelling " +
-                    "severity will live here. For now, use the meal's notes box to jot " +
-                    "down where you're swollen.",
-                size = 14,
+                "Tap a zone to mark swelling. Tap again to increase severity. A third tap clears it.",
+                size = 13,
                 color = c.txtM,
+            )
+            BodyMapSelector(
+                swelling = swelling,
+                onSwellingChange = onSwellingChange,
             )
         }
     }
@@ -232,6 +236,7 @@ fun FlareSheet(onLog: (SymptomSnapshot) -> Unit, onClose: () -> Unit) {
     var itch by remember { mutableStateOf<Int?>(null) }
     var redness by remember { mutableStateOf<Int?>(null) }
     var bumps by remember { mutableStateOf<Int?>(null) }
+    var swelling by remember { mutableStateOf<Map<String, Int>>(emptyMap()) }
     var touch by remember { mutableStateOf("") }
 
     FullScreenSheet("⚡ Sudden Flare-Up", onClose) {
@@ -246,19 +251,28 @@ fun FlareSheet(onLog: (SymptomSnapshot) -> Unit, onClose: () -> Unit) {
             SymptomRow("🌡 Itchiness", itch) { itch = it }
             SymptomRow("🔴 Redness", redness) { redness = it }
             SymptomRow("🟤 Bumps", bumps) { bumps = it }
-            KText("🧍 Body map (swelling) coming soon — note where below for now.", size = 12, color = c.txtD)
+            BodyMapSelector(
+                swelling = swelling,
+                onSwellingChange = { zone, sev ->
+                    swelling = if (sev <= 0) swelling - zone else swelling + (zone to sev)
+                },
+            )
             KetoTextArea(
                 value = touch,
                 placeholder = "Anything you just touched or used…",
                 minLines = 2,
             ) { touch = it }
 
-            val empty = itch == null && redness == null && bumps == null && touch.isBlank()
+            val empty = itch == null && redness == null && bumps == null &&
+                swelling.isEmpty() && touch.isBlank()
             PrimaryButton(text = "Log Flare-Up ✓", modifier = Modifier.fillMaxWidth()) {
                 if (empty) {
-                    onClose() // nothing entered — dismiss without adding an empty flare
+                    onClose()
                 } else {
-                    onLog(SymptomSnapshot(itch = itch, redness = redness, bumps = bumps, touch = touch.trim()))
+                    onLog(SymptomSnapshot(
+                        itch = itch, redness = redness, bumps = bumps,
+                        swelling = swelling, touch = touch.trim(),
+                    ))
                     onClose()
                 }
             }

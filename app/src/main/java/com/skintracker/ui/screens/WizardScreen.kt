@@ -216,7 +216,13 @@ fun WizardScreen(vm: AppViewModel) {
             )
         }
         AnimatedVisibility(overlay == Overlay.BODY_MAP, enter = OVERLAY_ENTER, exit = OVERLAY_EXIT) {
-            BodyMapSheet(meal = bodyMapMeal ?: Meal.BREAKFAST, onClose = { overlay = Overlay.NONE })
+            val activeMeal = bodyMapMeal ?: Meal.BREAKFAST
+            BodyMapSheet(
+                meal = activeMeal,
+                swelling = vm.entry.mealSymptoms(activeMeal).swelling,
+                onSwellingChange = { zone, sev -> vm.setMealSwelling(activeMeal, zone, sev) },
+                onClose = { overlay = Overlay.NONE },
+            )
         }
         AnimatedVisibility(overlay == Overlay.QUICK_SELECT, enter = OVERLAY_ENTER, exit = OVERLAY_EXIT) {
             QuickSelectSheet(
