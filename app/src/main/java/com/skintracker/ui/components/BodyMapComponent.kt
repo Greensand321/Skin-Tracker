@@ -287,21 +287,6 @@ private fun BodyCanvas(
     }
 }
 
-// ── Internal helpers ──────────────────────────────────────────────────────────
-
-private fun Int?.toFillColor() = when (this) {
-    1    -> SEV_MILD
-    2    -> SEV_MODERATE
-    3    -> SEV_SEVERE
-    else -> SKIN_FILL
-}
-
-private fun Int.toTextColor() = when (this) {
-    1    -> Color(0xFFA07800)
-    2    -> Color(0xFFB85000)
-    else -> Color(0xFFBB1111)
-}
-
 @Composable
 private fun ViewToggleTab(
     label: String,
