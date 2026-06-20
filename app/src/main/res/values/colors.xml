@@ -4,4 +4,8 @@
     <color name="keto_bg">#060d18</color>
     <!-- Gold accent used as the notification LED / icon tint colour. -->
     <color name="keto_gold">#F5C842</color>
+    <!-- Widget colours -->
+    <color name="widget_bg">#0D1B2E</color>
+    <color name="widget_red">#C0392B</color>
+    <color name="widget_muted">#99AABBCC</color>
 </resources>

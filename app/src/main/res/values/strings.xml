@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Skin Tracker</string>
+    <string name="widget_description">Skin Tracker widget — tap to open today\'s log</string>
+    <string name="widget_flare_button">Log Today</string>
+    <string name="widget_flare_subtitle">Tap to open Skin Tracker</string>
 </resources>
