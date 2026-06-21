@@ -37,11 +37,11 @@ data class KetoColors(
     val isDark: Boolean,
 )
 
-// Shared brand colours — identical across every theme in the web app.
-private val ACCENT = Color(0xFF5CB85C)
-private val GOLD = Color(0xFFF5C842)
-private val RED = Color(0xFFE05252)
-private val BLUE = Color(0xFF5B9CF6)
+// Shared brand colours.
+private val ACCENT = Color(0xFFC0714A)  // terracotta — primary interactive
+private val GOLD   = Color(0xFFD4943A)  // warm amber — highlights / mild severity
+private val RED    = Color(0xFFD94F4F)  // alert — severe severity / errors
+private val BLUE   = Color(0xFF5B9CF6)  // clinical info
 
 // ── Dark base ("Midnight"). Other dark themes only override bg/surf/surf2. ──
 private fun darkBase(
@@ -77,44 +77,60 @@ private fun lightBase(bg: Color) = KetoColors(
     isDark = false,
 )
 
-/** All 14 themes, keyed by the same ids used in the web app. */
+/** All 14 themes — skin-tone and earthy palettes. */
 val KETO_THEMES: Map<String, KetoColors> = mapOf(
-    // Dark
-    "midnight" to darkBase(Color(0xFF060D18)),
-    "obsidian" to darkBase(Color(0xFF000000), surf = Color(0x0AFFFFFF), surf2 = Color(0x12FFFFFF)),
-    "graphite" to darkBase(Color(0xFF18191A), surf = Color(0x0FFFFFFF), surf2 = Color(0x17FFFFFF)),
-    "navy" to darkBase(Color(0xFF020817), surf = Color(0x0DFFFFFF), surf2 = Color(0x14FFFFFF)),
-    "twilight" to darkBase(Color(0xFF0D0618), surf = Color(0x0DFFFFFF), surf2 = Color(0x14FFFFFF)),
-    "aurora" to darkBase(Color(0xFF011A1A), surf = Color(0x0DFFFFFF), surf2 = Color(0x14FFFFFF)),
-    "forest" to darkBase(Color(0xFF011A08), surf = Color(0x0DFFFFFF), surf2 = Color(0x14FFFFFF)),
-    "ember" to darkBase(Color(0xFF150803), surf = Color(0x0DFFFFFF), surf2 = Color(0x14FFFFFF)),
-    // Light
-    "pearl" to lightBase(Color(0xFFF5F5F7)),
-    "azure" to lightBase(Color(0xFFEFF6FF)),
-    "blossom" to lightBase(Color(0xFFFFF0F5)),
-    "meadow" to lightBase(Color(0xFFF0FDF4)),
-    "lavender" to lightBase(Color(0xFFF5F3FF)),
-    "sunset" to lightBase(Color(0xFFFFF7ED)),
+    // ── Dark ──────────────────────────────────────────────────────────────────
+    // Dusk: very dark warm brown — like dusk light on skin
+    "dusk"      to darkBase(Color(0xFF1A1008), surf = Color(0x0FFFFFFF), surf2 = Color(0x17FFFFFF)),
+    // Charcoal: warm grey-black — clinical dark
+    "charcoal"  to darkBase(Color(0xFF141412), surf = Color(0x0AFFFFFF), surf2 = Color(0x12FFFFFF)),
+    // Mahogany: deep reddish-brown — rich dark skin tone
+    "mahogany"  to darkBase(Color(0xFF1A0A06), surf = Color(0x0EFFFFFF), surf2 = Color(0x15FFFFFF)),
+    // Midnight: warm near-black anchor
+    "midnight"  to darkBase(Color(0xFF0D0B09)),
+    // Cocoa: dark chocolate — deep brown warmth
+    "cocoa"     to darkBase(Color(0xFF120C08), surf = Color(0x0EFFFFFF), surf2 = Color(0x16FFFFFF)),
+    // Smoke: cool grey-brown — stone / ash
+    "smoke"     to darkBase(Color(0xFF121315), surf = Color(0x0CFFFFFF), surf2 = Color(0x14FFFFFF)),
+    // Walnut: deep warm umber — aged wood tone
+    "walnut"    to darkBase(Color(0xFF140E09), surf = Color(0x0FFFFFFF), surf2 = Color(0x17FFFFFF)),
+    // ── Light ─────────────────────────────────────────────────────────────────
+    // Ivory: warm off-white — pale skin, clinical neutral
+    "ivory"     to lightBase(Color(0xFFFBF8F4)),
+    // Sand: peachy warm sand — sun-kissed
+    "sand"      to lightBase(Color(0xFFFFF4E6)),
+    // Clay: light terracotta blush — earthy warm red undertone
+    "clay"      to lightBase(Color(0xFFFFF0E8)),
+    // Linen: soft warm taupe — natural, calm
+    "linen"     to lightBase(Color(0xFFF5EFE6)),
+    // Peach: soft peach blush — gentle warmth
+    "peach"     to lightBase(Color(0xFFFEF0EA)),
+    // Blush: very light rose — rosacea / pink undertone
+    "blush"     to lightBase(Color(0xFFFDF0F0)),
+    // Cream: rich warm cream — moisturiser / skincare
+    "cream"     to lightBase(Color(0xFFFDFAF5)),
 )
 
 /** Display metadata for the theme picker. */
 data class ThemeInfo(val id: String, val emoji: String, val label: String, val dark: Boolean)
 
 val THEME_LIST: List<ThemeInfo> = listOf(
-    ThemeInfo("midnight", "🌙", "Midnight", true),
-    ThemeInfo("obsidian", "⬛", "Obsidian", true),
-    ThemeInfo("graphite", "🪨", "Graphite", true),
-    ThemeInfo("navy", "🌊", "Navy", true),
-    ThemeInfo("twilight", "🌆", "Twilight", true),
-    ThemeInfo("aurora", "🌌", "Aurora", true),
-    ThemeInfo("forest", "🌲", "Forest", true),
-    ThemeInfo("ember", "🔥", "Ember", true),
-    ThemeInfo("pearl", "🤍", "Pearl", false),
-    ThemeInfo("azure", "💧", "Azure", false),
-    ThemeInfo("blossom", "🌸", "Blossom", false),
-    ThemeInfo("meadow", "🌿", "Meadow", false),
-    ThemeInfo("lavender", "💜", "Lavender", false),
-    ThemeInfo("sunset", "🌅", "Sunset", false),
+    // Dark
+    ThemeInfo("dusk",      "🌄", "Dusk",      true),
+    ThemeInfo("charcoal",  "🩶", "Charcoal",  true),
+    ThemeInfo("mahogany",  "🟤", "Mahogany",  true),
+    ThemeInfo("midnight",  "🌑", "Midnight",  true),
+    ThemeInfo("cocoa",     "☕", "Cocoa",     true),
+    ThemeInfo("smoke",     "💨", "Smoke",     true),
+    ThemeInfo("walnut",    "🪵", "Walnut",    true),
+    // Light
+    ThemeInfo("ivory",     "🤍", "Ivory",     false),
+    ThemeInfo("sand",      "🏖️", "Sand",      false),
+    ThemeInfo("clay",      "🏺", "Clay",      false),
+    ThemeInfo("linen",     "🧵", "Linen",     false),
+    ThemeInfo("peach",     "🍑", "Peach",     false),
+    ThemeInfo("blush",     "🌸", "Blush",     false),
+    ThemeInfo("cream",     "🧴", "Cream",     false),
 )
 
 val LocalKetoColors: ProvidableCompositionLocal<KetoColors> =

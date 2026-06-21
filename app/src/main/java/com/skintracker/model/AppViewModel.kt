@@ -61,7 +61,7 @@ class AppViewModel(
         private set
     var darkAutoThemeId by mutableStateOf("midnight")
         private set
-    var lightAutoThemeId by mutableStateOf("pearl")
+    var lightAutoThemeId by mutableStateOf("ivory")
         private set
 
     var viewedKey by mutableStateOf(DateUtils.todayKey())

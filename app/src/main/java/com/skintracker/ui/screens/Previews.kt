@@ -74,7 +74,7 @@ private fun PreviewThemePicker() {
             currentId = "midnight",
             autoEnabled = false,
             darkAutoId = "midnight",
-            lightAutoId = "pearl",
+            lightAutoId = "ivory",
             onPick = {},
             onPickAuto = { _, _ -> },
             onToggleAuto = {},
@@ -135,26 +135,26 @@ private fun PreviewSettings() {
 
 // ── Themes ────────────────────────────────────────────────────────────────────
 
-@Preview(name = "Theme — Pearl (light)", showBackground = true, heightDp = 900, widthDp = 390)
+@Preview(name = "Theme — Ivory (light)", showBackground = true, heightDp = 900, widthDp = 390)
 @Composable
-private fun PreviewPearl() {
-    KetoTracker("pearl") { WizardScreen(vmAt(Step.BREAKFAST, "pearl")) }
+private fun PreviewIvory() {
+    KetoTracker("ivory") { WizardScreen(vmAt(Step.BREAKFAST, "ivory")) }
 }
 
-@Preview(name = "Theme — Blossom (light)", showBackground = true, heightDp = 900, widthDp = 390)
+@Preview(name = "Theme — Blush (light)", showBackground = true, heightDp = 900, widthDp = 390)
 @Composable
-private fun PreviewBlossom() {
-    KetoTracker("blossom") { WizardScreen(vmAt(Step.LUNCH, "blossom")) }
+private fun PreviewBlush() {
+    KetoTracker("blush") { WizardScreen(vmAt(Step.LUNCH, "blush")) }
 }
 
-@Preview(name = "Theme — Forest (dark)", showBackground = true, heightDp = 900, widthDp = 390)
+@Preview(name = "Theme — Walnut (dark)", showBackground = true, heightDp = 900, widthDp = 390)
 @Composable
-private fun PreviewForest() {
-    KetoTracker("forest") { WizardScreen(vmAt(Step.DINNER, "forest")) }
+private fun PreviewWalnut() {
+    KetoTracker("walnut") { WizardScreen(vmAt(Step.DINNER, "walnut")) }
 }
 
-@Preview(name = "Theme — Ember (dark)", showBackground = true, heightDp = 900, widthDp = 390)
+@Preview(name = "Theme — Mahogany (dark)", showBackground = true, heightDp = 900, widthDp = 390)
 @Composable
-private fun PreviewEmber() {
-    KetoTracker("ember") { WizardScreen(vmAt(Step.SUMMARY, "ember")) }
+private fun PreviewMahogany() {
+    KetoTracker("mahogany") { WizardScreen(vmAt(Step.SUMMARY, "mahogany")) }
 }
