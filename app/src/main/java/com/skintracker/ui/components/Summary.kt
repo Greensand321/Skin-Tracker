@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.skintracker.data.BodyZone
 import com.skintracker.data.DateUtils
 import com.skintracker.data.DaySeverity
 import com.skintracker.data.DayEntry
@@ -165,7 +166,12 @@ private fun SymptomLine(s: SymptomSnapshot) {
             KText(parts.joinToString("   "), size = 13, color = c.txt, weight = FontWeight.SemiBold)
         }
         if (s.swelling.isNotEmpty()) {
-            KText("🧍 Swelling: " + s.swelling.entries.joinToString(", ") { "${it.key} (${it.value})" }, size = 12, color = c.txtM)
+            val swellingText = s.swelling.entries.joinToString(", ") { (zoneId, sev) ->
+                val label = BodyZone.fromId(zoneId)?.label ?: zoneId
+                val sevWord = when (sev) { 1 -> "mild"; 2 -> "moderate"; else -> "severe" }
+                "$label ($sevWord)"
+            }
+            KText("🧍 Swelling: $swellingText", size = 12, color = c.txtM)
         }
         if (s.touch.isNotBlank()) {
             KText("✋ ${s.touch}", size = 12, color = c.txtM)
