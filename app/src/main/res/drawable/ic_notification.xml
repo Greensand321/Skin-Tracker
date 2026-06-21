@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Notification small icon — must be monochrome (white on transparent) for Android's
-    tinting system. Avocado pear outline with pit hole using even-odd fill rule,
-    matching the app's avocado branding from ic_launcher_foreground.xml.
+    Notification small icon — monochrome (white on transparent) skin cross-section.
+    Three horizontal layers (epidermis, dermis, subcutis) with two hair follicles,
+    matching the skin_square.jpeg branding.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!--
-        Outer avocado pear shape + inner pit circle as a single even-odd path,
-        so the pit appears as a transparent hole through the white fill.
-    -->
+    <!-- Outer skin-block outline — rounded top corners, flat bottom. -->
     <path
-        android:fillColor="@android:color/white"
-        android:fillType="evenOdd"
-        android:pathData="
-            M12,1.5
-            C9.5,1.5 7,4 7,7.5
-            C7,10.5 6,12.5 5.5,14.5
-            C4.5,18 6,22.5 12,22.5
-            C18,22.5 19.5,18 18.5,14.5
-            C18,12.5 17,10.5 17,7.5
-            C17,4 14.5,1.5 12,1.5 Z
-            M12,10.5
-            C10.3,10.5 9,11.8 9,13.5
-            C9,15.2 10.3,16.5 12,16.5
-            C13.7,16.5 15,15.2 15,13.5
-            C15,11.8 13.7,10.5 12,10.5 Z" />
+        android:fillColor="#00000000"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.8"
+        android:pathData="M2,7 C2,5.9 2.9,5 4,5 L20,5 C21.1,5 22,5.9 22,7 L22,20 C22,21.1 21.1,22 20,22 L4,22 C2.9,22 2,21.1 2,20 Z" />
+    <!-- Epidermis / dermis divider. -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.5"
+        android:pathData="M2,12 L22,12" />
+    <!-- Dermis / subcutis divider. -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.5"
+        android:pathData="M2,17 L22,17" />
+    <!-- Hair follicle — left. -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.5"
+        android:pathData="M8,5 C7.5,3.5 9,2 8.5,1" />
+    <!-- Hair follicle — right. -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.5"
+        android:pathData="M16,5 C16.5,3.5 15,2.5 16,1.5" />
 </vector>

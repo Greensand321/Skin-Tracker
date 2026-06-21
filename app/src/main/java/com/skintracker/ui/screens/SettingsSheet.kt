@@ -137,13 +137,13 @@ fun SettingsSheet(vm: AppViewModel, onTheme: () -> Unit, onClose: () -> Unit) {
                 SettingsPage.DATA_STORAGE -> SettingsDataStoragePage(
                     vm = vm,
                     onBack = { page = SettingsPage.MAIN },
-                    onExportJson = { exportJsonLauncher.launch("keto-all-data-${DateUtils.todayKey()}.json") },
+                    onExportJson = { exportJsonLauncher.launch("skin-data-${DateUtils.todayKey()}.json") },
                     onImportJson = { importJsonLauncher.launch(arrayOf("application/json")) },
-                    onExportZip = { exportZipLauncher.launch("keto-backup-${DateUtils.todayKey()}.zip") },
+                    onExportZip = { exportZipLauncher.launch("skin-backup-${DateUtils.todayKey()}.zip") },
                     onImportZip = { importZipLauncher.launch(arrayOf("application/zip", "application/x-zip-compressed", "*/*")) },
                     onExportSnapshot = { id ->
                         pendingSnapshotExportId = id
-                        exportSnapshotLauncher.launch("keto-snapshot-${DateUtils.todayKey()}.json")
+                        exportSnapshotLauncher.launch("skin-snapshot-${DateUtils.todayKey()}.json")
                     },
                 )
                 SettingsPage.QUICK_SELECT -> SettingsQuickSelectPage(
