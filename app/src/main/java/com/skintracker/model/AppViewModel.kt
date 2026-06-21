@@ -61,7 +61,7 @@ class AppViewModel(
         private set
     var darkAutoThemeId by mutableStateOf("midnight")
         private set
-    var lightAutoThemeId by mutableStateOf("pearl")
+    var lightAutoThemeId by mutableStateOf("ivory")
         private set
 
     var viewedKey by mutableStateOf(DateUtils.todayKey())
@@ -90,6 +90,13 @@ class AppViewModel(
      */
     private val _messages = Channel<String>(Channel.BUFFERED)
     val messages: Flow<String> = _messages.receiveAsFlow()
+
+    // Set when the home-screen widget deep-links in to log a flare
+    // (FlareWidgetProvider.ACTION_LOG_FLARE). The wizard observes this, opens
+    // the flare sheet, then calls consumeOpenFlareRequest(). A plain idempotent
+    // state flag is enough — re-opening an already-open sheet is a no-op.
+    var openFlareRequested by mutableStateOf(false)
+        private set
 
     // Bumped whenever photos for the active day change, so `mealPhotos()` —
     // a plain disk read with no Compose State of its own — re-triggers reads
@@ -339,6 +346,18 @@ class AppViewModel(
     fun addFlare(symptoms: SymptomSnapshot) = update {
         it.copy(flares = it.flares + Flare(time = nowHm(), symptoms = symptoms))
     }
+
+    /**
+     * Entry point for the home-screen widget. A flare is always logged "now",
+     * so we snap to today first, then raise [openFlareRequested] for the UI to
+     * open the flare sheet.
+     */
+    fun requestOpenFlare() {
+        if (!isToday) goToday()
+        openFlareRequested = true
+    }
+
+    fun consumeOpenFlareRequest() { openFlareRequested = false }
 
     // ── Photos ────────────────────────────────────────────────────────────────
     // Native counterpart to the web app's getMealPhotos/addMealPhoto/

@@ -1,5 +1,6 @@
 package com.skintracker
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +18,7 @@ import com.skintracker.ui.screens.WizardScreen
 import com.skintracker.ui.theme.KetoTheme
 import com.skintracker.ui.theme.KetoTracker
 import com.skintracker.ui.theme.resolveAutoTheme
+import com.skintracker.widget.FlareWidgetProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -37,6 +39,12 @@ class MainActivity : ComponentActivity() {
         // the file and PhotoStore deleting it — see CameraCapture.kt).
         lifecycleScope.launch(Dispatchers.IO) { clearStaleCaptures(applicationContext) }
 
+        // Cold-start from the widget: open the flare sheet once composition runs.
+        // Guard on savedInstanceState so a rotation (which re-runs onCreate with
+        // the same launching intent) doesn't re-open the sheet — warm-start
+        // re-launches arrive through onNewIntent instead.
+        if (savedInstanceState == null) handleIntent(intent)
+
         setContent {
             val themeId = if (vm.autoThemeEnabled) {
                 resolveAutoTheme(vm.darkAutoThemeId, vm.lightAutoThemeId)
@@ -53,6 +61,21 @@ class MainActivity : ComponentActivity() {
                     WizardScreen(vm)
                 }
             }
+        }
+    }
+
+    // Warm-start from the widget while the activity is already running
+    // (launchMode is singleTop via FLAG_ACTIVITY_SINGLE_TOP from the widget).
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
+
+    /** Routes the widget's ACTION_LOG_FLARE deep link to the flare sheet. */
+    private fun handleIntent(intent: Intent?) {
+        if (intent?.action == FlareWidgetProvider.ACTION_LOG_FLARE) {
+            vm.requestOpenFlare()
         }
     }
 }

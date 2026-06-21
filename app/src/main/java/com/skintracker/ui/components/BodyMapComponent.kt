@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -252,6 +253,12 @@ private fun BodyCanvas(
     modifier: Modifier = Modifier,
 ) {
     var canvasSize by remember { mutableStateOf(IntSize.Zero) }
+    // pointerInput is keyed only on `zones` (a stable reference), so the gesture
+    // block is never restarted and would otherwise capture a frozen snapshot of
+    // `onZoneTap` — which closes over the current `swelling` map. Routing taps
+    // through rememberUpdatedState keeps each tap reading the latest callback
+    // (and therefore the latest severity) without restarting the detector.
+    val currentOnZoneTap by rememberUpdatedState(onZoneTap)
 
     Canvas(
         modifier = modifier
@@ -264,7 +271,7 @@ private fun BodyCanvas(
                     if (w == 0f) return@detectTapGestures
                     val vx = offset.x * VW / w
                     val vy = offset.y * VH / h
-                    hitTestZone(vx, vy, zones)?.let(onZoneTap)
+                    hitTestZone(vx, vy, zones)?.let(currentOnZoneTap)
                 }
             },
     ) {

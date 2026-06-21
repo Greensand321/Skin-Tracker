@@ -51,7 +51,7 @@ class PrefsStore(context: Context) {
 
     val lightAutoTheme: Flow<String> = ds.data
         .catch { emit(emptyPreferences()) }
-        .map { prefs -> prefs[LIGHT_AUTO_KEY] ?: "pearl" }
+        .map { prefs -> prefs[LIGHT_AUTO_KEY] ?: "ivory" }
 
     suspend fun setAutoThemeEnabled(enabled: Boolean) {
         ds.edit { prefs -> prefs[AUTO_ENABLED_KEY] = enabled }
