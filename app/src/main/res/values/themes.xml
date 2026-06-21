@@ -3,8 +3,8 @@
     <!-- Base application theme. Compose drives all real theming at runtime;
          this only sets a sensible splash/background before Compose loads. -->
     <style name="Theme.SkinTracker" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">@color/keto_bg</item>
-        <item name="android:statusBarColor">@color/keto_bg</item>
-        <item name="android:navigationBarColor">@color/keto_bg</item>
+        <item name="android:windowBackground">@color/skin_bg</item>
+        <item name="android:statusBarColor">@color/skin_bg</item>
+        <item name="android:navigationBarColor">@color/skin_bg</item>
     </style>
 </resources>

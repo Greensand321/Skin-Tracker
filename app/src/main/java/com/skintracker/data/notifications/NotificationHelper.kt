@@ -14,7 +14,7 @@ import com.skintracker.R
 /** Handles the notification channel lifecycle and builds the daily reminder notification. */
 object NotificationHelper {
 
-    const val CHANNEL_ID = "keto_daily_reminder"
+    const val CHANNEL_ID = "skin_daily_reminder"
     private const val NOTIFICATION_ID = 1001
 
     /**
@@ -27,9 +27,9 @@ object NotificationHelper {
             "Daily Reminder",
             NotificationManager.IMPORTANCE_DEFAULT,
         ).apply {
-            description = "Daily nudge to log today's meals"
+            description = "Daily nudge to log today's skin symptoms"
             enableLights(true)
-            lightColor = ContextCompat.getColor(context, R.color.keto_gold)
+            lightColor = ContextCompat.getColor(context, R.color.skin_accent)
             enableVibration(true)
             setShowBadge(true)
         }
@@ -41,10 +41,10 @@ object NotificationHelper {
      *
      * Visual design goals — good on both lock screen and notification bar:
      *  - Large icon: full-colour app launcher icon (shows in the notification body)
-     *  - Small icon: monochrome avocado silhouette (tinted gold in the status bar)
+     *  - Small icon: monochrome skin cross-section silhouette (tinted amber in the status bar)
      *  - BigTextStyle: expanded body text when the shade is pulled down
      *  - VISIBILITY_PUBLIC: shows full content on the lock screen without requiring unlock
-     *  - Gold accent colour: keeps notifications on-brand
+     *  - Amber accent colour: on-brand with the skin tracker palette
      *  - "Log Now" action button: one-tap to open the app directly
      */
     fun showReminder(context: Context, body: String) {
@@ -61,9 +61,9 @@ object NotificationHelper {
                     .setBigContentTitle("Skin Tracker")
                     .setSummaryText("Daily Reminder"),
             )
-            // Gold accent: tints the small icon in the status bar and the left-hand stripe
+            // Amber accent: tints the small icon in the status bar and the left-hand stripe
             // on MIUI / Samsung One UI lock-screen cards.
-            .setColor(ContextCompat.getColor(context, R.color.keto_gold))
+            .setColor(ContextCompat.getColor(context, R.color.skin_accent))
             .setContentIntent(tapIntent)
             .setAutoCancel(true)
             // Show full notification text on the lock screen — no need to unlock to read it.

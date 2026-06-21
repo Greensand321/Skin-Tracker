@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Matches the default "Midnight" web theme background (#060d18). -->
-    <color name="keto_bg">#060d18</color>
-    <!-- Gold accent used as the notification LED / icon tint colour. -->
-    <color name="keto_gold">#F5C842</color>
+    <!-- Warm dark background for splash/status bar before Compose loads (matches Dusk theme). -->
+    <color name="skin_bg">#1A1008</color>
+    <!-- Warm amber accent — notification LED tint and icon color. -->
+    <color name="skin_accent">#D4943A</color>
     <!-- Widget colours -->
-    <color name="widget_bg">#0D1B2E</color>
+    <color name="widget_bg">#1A1008</color>
     <color name="widget_red">#C0392B</color>
-    <color name="widget_muted">#99AABBCC</color>
+    <color name="widget_muted">#99C4A882</color>
 </resources>
