@@ -1,65 +1,46 @@
 package com.skintracker.data
 
-/**
- * Every tappable body zone on the front/back map.
- *
- * Anatomical convention (patient-facing): RIGHT_* zones appear on the
- * viewer's LEFT in the front view. The back view uses the same screen
- * orientation (no mirror) — RIGHT still means the patient's right side.
- *
- * Zone IDs are the keys stored in [SymptomSnapshot.swelling]; changing
- * them is a breaking change to the JSON export format.
- */
 enum class BodyZone(val id: String, val label: String) {
-    HEAD_NECK("head_neck", "Head & Neck"),
-    RIGHT_SHOULDER("right_shoulder", "R Shoulder"),
-    LEFT_SHOULDER("left_shoulder", "L Shoulder"),
-    UPPER_CHEST("upper_chest", "Chest"),
+    // ── Front ─────────────────────────────────────────────────────────────────
+    HEAD_FACE("head_face", "Head & Face"),
+    NECK("neck", "Neck"),
+    R_SHOULDER("r_shoulder", "R Shoulder"),
+    L_SHOULDER("l_shoulder", "L Shoulder"),
+    R_UPPER_ARM("r_upper_arm", "R Upper Arm"),
+    L_UPPER_ARM("l_upper_arm", "L Upper Arm"),
+    R_FOREARM("r_forearm", "R Forearm"),
+    L_FOREARM("l_forearm", "L Forearm"),
+    R_HAND("r_hand", "R Hand"),
+    L_HAND("l_hand", "L Hand"),
+    CHEST("chest", "Chest"),
     BELLY("belly", "Belly"),
+    R_THIGH("r_thigh", "R Thigh"),
+    L_THIGH("l_thigh", "L Thigh"),
+    R_CALF("r_calf", "R Calf"),
+    L_CALF("l_calf", "L Calf"),
+    R_FOOT("r_foot", "R Foot"),
+    L_FOOT("l_foot", "L Foot"),
+    // ── Back ──────────────────────────────────────────────────────────────────
+    BACK_HEAD("back_head", "Head (Back)"),
+    BACK_NECK("back_neck", "Neck (Back)"),
     UPPER_BACK("upper_back", "Upper Back"),
     LOWER_BACK("lower_back", "Lower Back"),
-    RIGHT_FOREARM("right_forearm", "R Forearm"),
-    LEFT_FOREARM("left_forearm", "L Forearm"),
-    RIGHT_HAND("right_hand", "R Hand"),
-    LEFT_HAND("left_hand", "L Hand"),
-    RIGHT_THIGH("right_thigh", "R Thigh"),
-    LEFT_THIGH("left_thigh", "L Thigh"),
-    RIGHT_CALF("right_calf", "R Calf"),
-    LEFT_CALF("left_calf", "L Calf"),
-    RIGHT_FOOT("right_foot", "R Foot"),
-    LEFT_FOOT("left_foot", "L Foot");
+    GLUTES("glutes", "Glutes"),
+    R_UPPER_ARM_BACK("r_upper_arm_back", "R Upper Arm (Back)"),
+    L_UPPER_ARM_BACK("l_upper_arm_back", "L Upper Arm (Back)"),
+    R_FOREARM_BACK("r_forearm_back", "R Forearm (Back)"),
+    L_FOREARM_BACK("l_forearm_back", "L Forearm (Back)"),
+    R_THIGH_BACK("r_thigh_back", "R Thigh (Back)"),
+    L_THIGH_BACK("l_thigh_back", "L Thigh (Back)"),
+    R_CALF_BACK("r_calf_back", "R Calf (Back)"),
+    L_CALF_BACK("l_calf_back", "L Calf (Back)"),
+    R_FOOT_SOLE("r_foot_sole", "R Foot (Sole)"),
+    L_FOOT_SOLE("l_foot_sole", "L Foot (Sole)");
 
     companion object {
         fun fromId(id: String): BodyZone? = entries.firstOrNull { it.id == id }
-
-        val frontZones: List<BodyZone> = listOf(
-            HEAD_NECK,
-            RIGHT_SHOULDER, LEFT_SHOULDER,
-            UPPER_CHEST, BELLY,
-            RIGHT_FOREARM, LEFT_FOREARM,
-            RIGHT_HAND, LEFT_HAND,
-            RIGHT_THIGH, LEFT_THIGH,
-            RIGHT_CALF, LEFT_CALF,
-            RIGHT_FOOT, LEFT_FOOT,
-        )
-
-        val backZones: List<BodyZone> = listOf(
-            HEAD_NECK,
-            RIGHT_SHOULDER, LEFT_SHOULDER,
-            UPPER_BACK, LOWER_BACK,
-            RIGHT_FOREARM, LEFT_FOREARM,
-            RIGHT_HAND, LEFT_HAND,
-            RIGHT_THIGH, LEFT_THIGH,
-            RIGHT_CALF, LEFT_CALF,
-            RIGHT_FOOT, LEFT_FOOT,
-        )
     }
 }
 
 /** Cycles null → 1 (mild) → 2 (moderate) → 3 (severe) → null (clear). */
-fun Int?.nextSeverity(): Int? = when (this) {
-    null -> 1
-    1 -> 2
-    2 -> 3
-    else -> null
-}
+fun Int?.nextSeverity(): Int? = when (this) { null -> 1; 1 -> 2; 2 -> 3; else -> null }
